@@ -1,0 +1,139 @@
+<!-- Sample MML Document -->
+<!-- Basic 3D primitives -->
+<m-cube 
+    id="red-cube"
+    x="0" 
+    y="0" 
+    z="0" 
+    width="1" 
+    height="1" 
+    depth="1" 
+    color="red">
+</m-cube>
+
+<m-sphere 
+    x="3" 
+    y="0" 
+    z="0" 
+    radius="0.5" 
+    color="blue">
+</m-sphere>
+
+<m-cylinder 
+    x="-3" 
+    y="0" 
+    z="0" 
+    radius="0.5" 
+    height="2" 
+    color="green">
+</m-cylinder>
+
+<!-- 3D Model -->
+<m-model 
+    x="0" 
+    y="2" 
+    z="0" 
+    src="https://public.mml.io/models/duck.glb"
+    sx="0.5" 
+    sy="0.5" 
+    sz="0.5">
+</m-model>
+
+<!-- Character/Avatar -->
+<m-character 
+    x="5" 
+    y="0" 
+    z="0" 
+    src="https://public.mml.io/character-body.glb">
+</m-character>
+
+<!-- Light source -->
+<m-light 
+    x="0" 
+    y="10" 
+    z="5" 
+    type="directional" 
+    color="#ffffff" 
+    intensity="1">
+</m-light>
+
+<!-- Interactive elements -->
+<m-text 
+    x="0" 
+    y="4" 
+    z="0" 
+    color="#000000" 
+    font-size="0.5">
+    Welcome to MML!
+</m-text>
+
+<!-- Media elements -->
+<m-video 
+    x="0" 
+    y="0" 
+    z="-5" 
+    width="4" 
+    height="2.25" 
+    src="https://example.com/video.mp4" 
+    controls="true">
+</m-video>
+
+<m-audio 
+    x="2" 
+    y="1" 
+    z="2" 
+    src="https://example.com/audio.mp3" 
+    volume="0.5" 
+    loop="true">
+</m-audio>
+
+<!-- Grouping elements -->
+<m-group x="10" y="0" z="0">
+    <m-cube color="yellow" width="0.5" height="0.5" depth="0.5"></m-cube>
+    <m-sphere x="1" color="orange" radius="0.25"></m-sphere>
+</m-group>
+
+<!-- Position probe for interactions -->
+<m-position-probe 
+    x="0" 
+    y="0" 
+    z="0" 
+    range="5" 
+    debug="false">
+</m-position-probe>
+
+<!-- JavaScript for interactivity -->
+<script>
+    // Make the cube interactive
+    const cube = document.getElementById('red-cube');
+    const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+    let colorIndex = 0;
+
+    cube.addEventListener('click', () => {
+        colorIndex = (colorIndex + 1) % colors.length;
+        cube.setAttribute('color', colors[colorIndex]);
+        console.log(`Cube color changed to: ${colors[colorIndex]}`);
+    });
+
+    // Animate the sphere
+    const sphere = document.querySelector('m-sphere');
+    let time = 0;
+
+    function animateSphere() {
+        time += 0.02;
+        const y = Math.sin(time) * 2;
+        sphere.setAttribute('y', y.toString());
+        requestAnimationFrame(animateSphere);
+    }
+    animateSphere();
+
+    // Log when users enter the position probe area
+    const probe = document.querySelector('m-position-probe');
+    probe.addEventListener('positionenter', (event) => {
+        console.log('User entered probe area:', event.detail);
+    });
+
+    probe.addEventListener('positionleave', (event) => {
+        console.log('User left probe area:', event.detail);
+    });
+</script>

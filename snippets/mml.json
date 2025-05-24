@@ -1,0 +1,208 @@
+{
+    "MML Cube": {
+        "prefix": "m-cube",
+        "body": [
+            "<m-cube",
+            "\tx=\"${1:0}\"",
+            "\ty=\"${2:0}\"",
+            "\tz=\"${3:0}\"",
+            "\twidth=\"${4:1}\"",
+            "\theight=\"${5:1}\"",
+            "\tdepth=\"${6:1}\"",
+            "\tcolor=\"${7:red}\">",
+            "</m-cube>"
+        ],
+        "description": "Create an MML cube element"
+    },
+    "MML Sphere": {
+        "prefix": "m-sphere",
+        "body": [
+            "<m-sphere",
+            "\tx=\"${1:0}\"",
+            "\ty=\"${2:0}\"",
+            "\tz=\"${3:0}\"",
+            "\tradius=\"${4:1}\"",
+            "\tcolor=\"${5:blue}\">",
+            "</m-sphere>"
+        ],
+        "description": "Create an MML sphere element"
+    },
+    "MML Model": {
+        "prefix": "m-model",
+        "body": [
+            "<m-model",
+            "\tx=\"${1:0}\"",
+            "\ty=\"${2:0}\"",
+            "\tz=\"${3:0}\"",
+            "\tsx=\"${4:1}\"",
+            "\tsy=\"${5:1}\"",
+            "\tsz=\"${6:1}\"",
+            "\tsrc=\"${7:https://example.com/model.glb}\">",
+            "</m-model>"
+        ],
+        "description": "Create an MML 3D model element"
+    },
+    "MML Character": {
+        "prefix": "m-character",
+        "body": [
+            "<m-character",
+            "\tx=\"${1:0}\"",
+            "\ty=\"${2:0}\"",
+            "\tz=\"${3:0}\"",
+            "\tsrc=\"${4:https://example.com/character.glb}\">",
+            "</m-character>"
+        ],
+        "description": "Create an MML character/avatar element"
+    },
+    "MML Light": {
+        "prefix": "m-light",
+        "body": [
+            "<m-light",
+            "\tx=\"${1:0}\"",
+            "\ty=\"${2:5}\"",
+            "\tz=\"${3:0}\"",
+            "\ttype=\"${4:directional}\"",
+            "\tcolor=\"${5:#ffffff}\"",
+            "\tintensity=\"${6:1}\">",
+            "</m-light>"
+        ],
+        "description": "Create an MML light element"
+    },
+    "MML Audio": {
+        "prefix": "m-audio",
+        "body": [
+            "<m-audio",
+            "\tx=\"${1:0}\"",
+            "\ty=\"${2:0}\"",
+            "\tz=\"${3:0}\"",
+            "\tsrc=\"${4:https://example.com/audio.mp3}\"",
+            "\tvolume=\"${5:1}\"",
+            "\tloop=\"${6:false}\"",
+            "\tautoplay=\"${7:false}\">",
+            "</m-audio>"
+        ],
+        "description": "Create an MML audio element"
+    },
+    "MML Video": {
+        "prefix": "m-video",
+        "body": [
+            "<m-video",
+            "\tx=\"${1:0}\"",
+            "\ty=\"${2:0}\"",
+            "\tz=\"${3:0}\"",
+            "\twidth=\"${4:16}\"",
+            "\theight=\"${5:9}\"",
+            "\tsrc=\"${6:https://example.com/video.mp4}\"",
+            "\tcontrols=\"${7:true}\">",
+            "</m-video>"
+        ],
+        "description": "Create an MML video element"
+    },
+    "MML Image": {
+        "prefix": "m-image",
+        "body": [
+            "<m-image",
+            "\tx=\"${1:0}\"",
+            "\ty=\"${2:0}\"",
+            "\tz=\"${3:0}\"",
+            "\twidth=\"${4:2}\"",
+            "\theight=\"${5:2}\"",
+            "\tsrc=\"${6:https://example.com/image.jpg}\">",
+            "</m-image>"
+        ],
+        "description": "Create an MML image element"
+    },
+    "MML Text": {
+        "prefix": "m-text",
+        "body": [
+            "<m-text",
+            "\tx=\"${1:0}\"",
+            "\ty=\"${2:0}\"",
+            "\tz=\"${3:0}\"",
+            "\tcolor=\"${4:#000000}\"",
+            "\tfont-size=\"${5:1}\">",
+            "\t${6:Hello World}",
+            "</m-text>"
+        ],
+        "description": "Create an MML text element"
+    },
+    "MML Group": {
+        "prefix": "m-group",
+        "body": [
+            "<m-group",
+            "\tx=\"${1:0}\"",
+            "\ty=\"${2:0}\"",
+            "\tz=\"${3:0}\">",
+            "\t$0",
+            "</m-group>"
+        ],
+        "description": "Create an MML group element to organize other elements"
+    },
+    "MML Interactive Cube": {
+        "prefix": "m-interactive-cube",
+        "body": [
+            "<m-cube",
+            "\tid=\"${1:my-cube}\"",
+            "\tx=\"${2:0}\"",
+            "\ty=\"${3:0}\"",
+            "\tz=\"${4:0}\"",
+            "\twidth=\"${5:1}\"",
+            "\theight=\"${6:1}\"",
+            "\tdepth=\"${7:1}\"",
+            "\tcolor=\"${8:red}\">",
+            "</m-cube>",
+            "",
+            "<script>",
+            "\tconst cube = document.getElementById('${1:my-cube}');",
+            "\tcube.addEventListener('click', () => {",
+            "\t\tcube.setAttribute('color', '${9:blue}');",
+            "\t});",
+            "</script>"
+        ],
+        "description": "Create an interactive MML cube with click event"
+    },
+    "MML Portal": {
+        "prefix": "m-portal",
+        "body": [
+            "<m-portal",
+            "\tx=\"${1:0}\"",
+            "\ty=\"${2:0}\"",
+            "\tz=\"${3:0}\"",
+            "\twidth=\"${4:2}\"",
+            "\theight=\"${5:3}\"",
+            "\turl=\"${6:ws://example.com/world}\">",
+            "</m-portal>"
+        ],
+        "description": "Create an MML portal to another world"
+    },
+    "MML Position Probe": {
+        "prefix": "m-position-probe",
+        "body": [
+            "<m-position-probe",
+            "\tx=\"${1:0}\"",
+            "\ty=\"${2:0}\"",
+            "\tz=\"${3:0}\"",
+            "\trange=\"${4:5}\"",
+            "\tdebug=\"${5:false}\">",
+            "</m-position-probe>"
+        ],
+        "description": "Create an MML position probe for detecting user positions"
+    },
+    "Basic MML Document": {
+        "prefix": "mml-document",
+        "body": [
+            "<!-- MML content -->",
+            "<m-cube x=\"0\" y=\"0\" z=\"0\" color=\"red\"></m-cube>",
+            "",
+            "<script>",
+            "\t// JavaScript for interactivity",
+            "\tconst cube = document.querySelector('m-cube');",
+            "\tcube.addEventListener('click', () => {",
+            "\t\tcube.setAttribute('color', 'blue');",
+            "\t});",
+            "</script>",
+            "$0"
+        ],
+        "description": "Create a basic MML document structure"
+    }
+}

@@ -1,0 +1,40 @@
+<!-- Test multiline MML tags -->
+<m-cube 
+    id="red-cube"
+    x="0" 
+    y="0" 
+    z="0" 
+    width="1" 
+    height="1" 
+    depth="1" 
+    color="red">
+</m-cube>
+
+<m-sphere 
+    x="3" 
+    y="0" 
+    z="0" 
+    radius="0.5" 
+    color="blue">
+</m-sphere>
+
+<m-cylinder 
+    x="-3" 
+    y="0" 
+    z="0" 
+    radius="0.5" 
+    height="2" 
+    color="green">
+</m-cylinder>
+
+<!-- Self-closing tag -->
+<m-light 
+    x="0" 
+    y="10" 
+    z="5" 
+    type="directional" 
+    color="#ffffff" 
+    intensity="1" />
+
+<!-- Single line tag -->
+<m-text x="0" y="4" z="0" color="black">Hello World</m-text> 

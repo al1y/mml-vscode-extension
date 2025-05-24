@@ -1,0 +1,27 @@
+<!-- Test file with intentional errors -->
+
+<!-- Valid element for reference -->
+<m-cube x="0" y="0" z="0" color="red"></m-cube>
+
+<!-- Error: Unclosed tag -->
+<m-sphere x="1" y="0" z="0" radius="0.5" color="blue">
+
+<!-- Error: Closing tag without opening -->
+</m-cylinder>
+
+<!-- Valid self-closing -->
+<m-light type="directional" />
+
+<!-- Error: Mismatched tags -->
+<m-model src="model.glb">
+</m-character>
+
+<!-- Valid nested structure -->
+<m-group>
+    <m-text>Hello</m-text>
+</m-group>
+
+<!-- Error: Unclosed nested -->
+<m-group>
+    <m-audio src="audio.mp3">
+</m-group> 

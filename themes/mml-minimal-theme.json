@@ -1,0 +1,94 @@
+{
+    "name": "MML Minimal Theme",
+    "type": "dark",
+    "tokenColors": [
+        {
+            "name": "MML Cube Elements",
+            "scope": "entity.name.tag.mml.cube",
+            "settings": {
+                "foreground": "#FFB3BA",
+                "fontStyle": "bold"
+            }
+        },
+        {
+            "name": "MML Sphere Elements", 
+            "scope": "entity.name.tag.mml.sphere",
+            "settings": {
+                "foreground": "#FFDFBA",
+                "fontStyle": "bold"
+            }
+        },
+        {
+            "name": "MML Cylinder Elements",
+            "scope": "entity.name.tag.mml.cylinder", 
+            "settings": {
+                "foreground": "#FFFFBA",
+                "fontStyle": "bold"
+            }
+        },
+        {
+            "name": "MML Plane Elements",
+            "scope": "entity.name.tag.mml.plane",
+            "settings": {
+                "foreground": "#BAFFC9",
+                "fontStyle": "bold"
+            }
+        },
+        {
+            "name": "MML Model Elements",
+            "scope": "entity.name.tag.mml.model",
+            "settings": {
+                "foreground": "#BAE1FF",
+                "fontStyle": "bold"
+            }
+        },
+        {
+            "name": "MML Character Elements",
+            "scope": "entity.name.tag.mml.character",
+            "settings": {
+                "foreground": "#C9BAFF",
+                "fontStyle": "bold"
+            }
+        },
+        {
+            "name": "MML Media Elements",
+            "scope": "entity.name.tag.mml.media",
+            "settings": {
+                "foreground": "#FFBAC9",
+                "fontStyle": "bold"
+            }
+        },
+        {
+            "name": "MML Utility Elements",
+            "scope": "entity.name.tag.mml.utility",
+            "settings": {
+                "foreground": "#D4BAFF",
+                "fontStyle": "bold"
+            }
+        },
+        {
+            "name": "MML Position Attributes",
+            "scope": "entity.other.attribute-name.mml.position",
+            "settings": {
+                "foreground": "#98FB98",
+                "fontStyle": "italic"
+            }
+        },
+        {
+            "name": "MML Appearance Attributes",
+            "scope": "entity.other.attribute-name.mml.appearance",
+            "settings": {
+                "foreground": "#87CEEB",
+                "fontStyle": "italic"
+            }
+        },
+        {
+            "name": "MML Interaction Attributes",
+            "scope": "entity.other.attribute-name.mml.interaction",
+            "settings": {
+                "foreground": "#DDA0DD",
+                "fontStyle": "italic"
+            }
+        }
+    ]
+} 

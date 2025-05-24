@@ -1,0 +1,189 @@
+{
+    "name": "vscode-mml-extension",
+    "displayName": "MML - Metaverse Markup Language",
+    "description": "MML (Metaverse Markup Language) syntax highlighting, validation and IntelliSense for .mml files",
+    "version": "1.0.1",
+    "publisher": "al1y",
+    "engines": {
+        "vscode": "^1.74.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Snippets",
+        "Linters"
+    ],
+    "keywords": [
+        "mml",
+        "metaverse markup language",
+        "metaverse"
+    ],
+    "galleryBanner": {
+        "color": "#2D2D30",
+        "theme": "dark"
+    },
+    "icon": "icons/icon-dark.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/al1y/mml-vscode-extension"
+    },
+    "homepage": "https://mml.io",
+    "bugs": {
+        "url": "https://github.com/al1y/mml-vscode-extension/issues"
+    },
+    "qna": "https://github.com/al1y/mml-vscode-extension/issues",
+    "license": "MIT",
+    "activationEvents": [
+        "onLanguage:mml"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "languages": [
+            {
+                "id": "mml",
+                "aliases": [
+                    "MML",
+                    "Metaverse Markup Language",
+                    "mml"
+                ],
+                "extensions": [
+                    ".mml"
+                ],
+                "configuration": "./language-configuration.json",
+                "icon": {
+                    "light": "./icons/icon-light.png",
+                    "dark": "./icons/icon-dark.png"
+                }
+            }
+        ],
+        "grammars": [
+            {
+                "language": "mml",
+                "scopeName": "source.mml",
+                "path": "./syntaxes/mml.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "mml",
+                "path": "./snippets/mml.json"
+            }
+        ],
+        "configurationDefaults": {
+            "editor.tokenColorCustomizations": {
+                "textMateRules": [
+                    {
+                        "scope": "entity.name.tag.mml.cube",
+                        "settings": {
+                            "foreground": "#FFB3BA",
+                            "fontStyle": "bold"
+                        }
+                    },
+                    {
+                        "scope": "entity.name.tag.mml.sphere",
+                        "settings": {
+                            "foreground": "#FFDFBA",
+                            "fontStyle": "bold"
+                        }
+                    },
+                    {
+                        "scope": "entity.name.tag.mml.cylinder",
+                        "settings": {
+                            "foreground": "#FFFFBA",
+                            "fontStyle": "bold"
+                        }
+                    },
+                    {
+                        "scope": "entity.name.tag.mml.plane",
+                        "settings": {
+                            "foreground": "#BAFFC9",
+                            "fontStyle": "bold"
+                        }
+                    },
+                    {
+                        "scope": "entity.name.tag.mml.model",
+                        "settings": {
+                            "foreground": "#BAE1FF",
+                            "fontStyle": "bold"
+                        }
+                    },
+                    {
+                        "scope": "entity.name.tag.mml.character",
+                        "settings": {
+                            "foreground": "#C9BAFF",
+                            "fontStyle": "bold"
+                        }
+                    },
+                    {
+                        "scope": "entity.name.tag.mml.media",
+                        "settings": {
+                            "foreground": "#FFBAC9",
+                            "fontStyle": "bold"
+                        }
+                    },
+                    {
+                        "scope": "entity.name.tag.mml.utility",
+                        "settings": {
+                            "foreground": "#D4BAFF",
+                            "fontStyle": "bold"
+                        }
+                    },
+                    {
+                        "scope": "entity.other.attribute-name.mml.position",
+                        "settings": {
+                            "foreground": "#98FB98",
+                            "fontStyle": "italic"
+                        }
+                    },
+                    {
+                        "scope": "entity.other.attribute-name.mml.appearance",
+                        "settings": {
+                            "foreground": "#87CEEB",
+                            "fontStyle": "italic"
+                        }
+                    },
+                    {
+                        "scope": "entity.other.attribute-name.mml.interaction",
+                        "settings": {
+                            "foreground": "#DDA0DD",
+                            "fontStyle": "italic"
+                        }
+                    }
+                ]
+            }
+        },
+        "commands": [
+            {
+                "command": "mml.validateSyntax",
+                "title": "Validate MML Syntax",
+                "category": "MML"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "mml.validateSyntax",
+                    "when": "resourceLangId == mml",
+                    "group": "1_modification"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run build",
+        "build": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run build && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./tests/test-runner.js",
+        "test:full": "npm run pretest && npm test",
+        "test:vscode": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.74.0",
+        "@types/node": "16.x",
+        "@typescript-eslint/eslint-plugin": "^5.45.0",
+        "@typescript-eslint/parser": "^5.45.0",
+        "eslint": "^8.28.0",
+        "typescript": "^4.9.4"
+    }
+}

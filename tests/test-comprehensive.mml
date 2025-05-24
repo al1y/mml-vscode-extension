@@ -1,0 +1,61 @@
+<!-- Comprehensive MML test file -->
+
+<!-- Multiline tags -->
+<m-cube 
+    id="red-cube"
+    x="0" 
+    y="0" 
+    z="0" 
+    width="1" 
+    height="1" 
+    depth="1" 
+    color="red">
+</m-cube>
+
+<!-- Single line tags -->
+<m-sphere x="3" y="0" z="0" radius="0.5" color="blue"></m-sphere>
+
+<!-- Self-closing multiline -->
+<m-light 
+    x="0" 
+    y="10" 
+    z="5" 
+    type="directional" 
+    color="#ffffff" 
+    intensity="1" />
+
+<!-- Self-closing single line -->
+<m-position-probe x="0" y="0" z="0" range="5" debug="false" />
+
+<!-- Tags with content -->
+<m-text x="0" y="4" z="0" color="black">
+    Hello World!
+</m-text>
+
+<!-- Nested tags -->
+<m-group x="10" y="0" z="0">
+    <m-cube color="yellow" width="0.5" height="0.5" depth="0.5"></m-cube>
+    <m-sphere x="1" color="orange" radius="0.25"></m-sphere>
+    <m-group x="2" y="0" z="0">
+        <m-cylinder radius="0.2" height="1" color="purple"></m-cylinder>
+    </m-group>
+</m-group>
+
+<!-- Mixed content -->
+<m-character 
+    x="5" 
+    y="0" 
+    z="0" 
+    src="https://public.mml.io/character-body.glb">
+</m-character>
+
+<!-- This should be valid -->
+<m-model 
+    x="0" 
+    y="2" 
+    z="0" 
+    src="https://public.mml.io/models/duck.glb"
+    sx="0.5" 
+    sy="0.5" 
+    sz="0.5">
+</m-model> 

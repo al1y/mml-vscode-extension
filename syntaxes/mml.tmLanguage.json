@@ -1,0 +1,358 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "MML",
+    "scopeName": "source.mml",
+    "patterns": [
+        {
+            "include": "#mml-script"
+        },
+        {
+            "include": "#mml-style"
+        },
+        {
+            "include": "#mml-tags"
+        },
+        {
+            "include": "text.html.basic"
+        }
+    ],
+    "repository": {
+        "mml-script": {
+            "patterns": [
+                {
+                    "name": "meta.embedded.block.javascript",
+                    "begin": "(?i)(<)(script)\\b(?=[^>]*>)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.tag.begin.html"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.script.html"
+                        }
+                    },
+                    "end": "(?i)(</)(script)(>)",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.tag.begin.html"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.script.html"
+                        },
+                        "3": {
+                            "name": "punctuation.definition.tag.end.html"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#tag-stuff"
+                        },
+                        {
+                            "begin": ">",
+                            "beginCaptures": {
+                                "0": {
+                                    "name": "punctuation.definition.tag.end.html"
+                                }
+                            },
+                            "end": "(?=</script)",
+                            "contentName": "source.js",
+                            "patterns": [
+                                {
+                                    "include": "source.js"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "mml-style": {
+            "patterns": [
+                {
+                    "name": "meta.embedded.block.css",
+                    "begin": "(?i)(<)(style)\\b(?=[^>]*>)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.tag.begin.html"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.style.html"
+                        }
+                    },
+                    "end": "(?i)(</)(style)(>)",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.tag.begin.html"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.style.html"
+                        },
+                        "3": {
+                            "name": "punctuation.definition.tag.end.html"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#tag-stuff"
+                        },
+                        {
+                            "begin": ">",
+                            "beginCaptures": {
+                                "0": {
+                                    "name": "punctuation.definition.tag.end.html"
+                                }
+                            },
+                            "end": "(?=</style)",
+                            "contentName": "source.css",
+                            "patterns": [
+                                {
+                                    "include": "source.css"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "mml-tags": {
+            "patterns": [
+                {
+                    "name": "meta.tag.mml.primitive",
+                    "begin": "(</?)(m-cube)(?=\\s|>|/>)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.tag.begin.html"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.mml.cube"
+                        }
+                    },
+                    "end": "/?>",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.tag.end.html"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#mml-attributes"
+                        },
+                        {
+                            "include": "#tag-stuff"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.tag.mml.primitive",
+                    "begin": "(</?)(m-sphere)(?=\\s|>|/>)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.tag.begin.html"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.mml.sphere"
+                        }
+                    },
+                    "end": "/?>",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.tag.end.html"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#mml-attributes"
+                        },
+                        {
+                            "include": "#tag-stuff"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.tag.mml.primitive",
+                    "begin": "(</?)(m-cylinder)(?=\\s|>|/>)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.tag.begin.html"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.mml.cylinder"
+                        }
+                    },
+                    "end": "/?>",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.tag.end.html"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#mml-attributes"
+                        },
+                        {
+                            "include": "#tag-stuff"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.tag.mml.primitive",
+                    "begin": "(</?)(m-plane)(?=\\s|>|/>)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.tag.begin.html"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.mml.plane"
+                        }
+                    },
+                    "end": "/?>",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.tag.end.html"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#mml-attributes"
+                        },
+                        {
+                            "include": "#tag-stuff"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.tag.mml.content",
+                    "begin": "(</?)(m-model)(?=\\s|>|/>)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.tag.begin.html"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.mml.model"
+                        }
+                    },
+                    "end": "/?>",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.tag.end.html"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#mml-attributes"
+                        },
+                        {
+                            "include": "#tag-stuff"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.tag.mml.content",
+                    "begin": "(</?)(m-character)(?=\\s|>|/>)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.tag.begin.html"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.mml.character"
+                        }
+                    },
+                    "end": "/?>",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.tag.end.html"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#mml-attributes"
+                        },
+                        {
+                            "include": "#tag-stuff"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.tag.mml.content",
+                    "begin": "(</?)(m-(?:image|video|audio|text))(?=\\s|>|/>)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.tag.begin.html"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.mml.media"
+                        }
+                    },
+                    "end": "/?>",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.tag.end.html"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#mml-attributes"
+                        },
+                        {
+                            "include": "#tag-stuff"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.tag.mml.utility",
+                    "begin": "(</?)(m-(?:light|group|position-probe))(?=\\s|>|/>)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.tag.begin.html"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.mml.utility"
+                        }
+                    },
+                    "end": "/?>",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.tag.end.html"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#mml-attributes"
+                        },
+                        {
+                            "include": "#tag-stuff"
+                        }
+                    ]
+                }
+            ]
+        },
+        "mml-attributes": {
+            "patterns": [
+                {
+                    "name": "entity.other.attribute-name.mml.position",
+                    "match": "\\b(x|y|z|sx|sy|sz|rx|ry|rz|width|height|depth|radius)\\b"
+                },
+                {
+                    "name": "entity.other.attribute-name.mml.appearance",
+                    "match": "\\b(color|src|scale|rotation|intensity|type)\\b"
+                },
+                {
+                    "name": "entity.other.attribute-name.mml.interaction",
+                    "match": "\\b(volume|loop|controls|debug|range)\\b"
+                }
+            ]
+        },
+        "tag-stuff": {
+            "patterns": [
+                {
+                    "include": "text.html.basic#attribute"
+                },
+                {
+                    "include": "text.html.basic#string-double-quoted"
+                },
+                {
+                    "include": "text.html.basic#string-single-quoted"
+                }
+            ]
+        }
+    }
+}

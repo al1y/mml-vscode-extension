@@ -1,0 +1,7 @@
+<m-sphere 
+    x="3" 
+    y="0" 
+    z="0" 
+    radius="0.5" 
+    color="blue">
+</m-sphere> 

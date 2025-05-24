@@ -1,0 +1,35 @@
+<!-- Test MML file for validation -->
+
+<!-- Properly formatted elements -->
+<m-cube x="0" y="0" z="0" width="1" height="1" depth="1" color="red"></m-cube>
+
+<m-sphere x="3" y="0" z="0" radius="0.5" color="blue"></m-sphere>
+
+<!-- Self-closing elements (should be valid) -->
+<m-light type="directional" x="0" y="5" z="0" color="white" intensity="1" />
+
+<!-- Group with nested elements -->
+<m-group x="5" y="0" z="0">
+    <m-cylinder radius="0.5" height="2" color="green"></m-cylinder>
+    <m-text content="Hello MML!" x="0" y="1" z="0" color="yellow"></m-text>
+</m-group>
+
+<!-- Test cases for validation errors (intentional) -->
+<!-- Unclosed tag -->
+<m-model src="https://example.com/model.glb" x="10" y="0" z="0">
+
+<!-- Closing tag without opening -->
+</m-video>
+
+<!-- Proper elements to test hover functionality -->
+<m-audio src="https://example.com/audio.mp3" x="0" y="2" z="0" volume="0.8" loop="true"></m-audio>
+
+<m-image src="https://example.com/image.png" x="0" y="3" z="0" width="2" height="1"></m-image>
+
+<script>
+    // Test JavaScript interaction
+    const cube = document.querySelector('m-cube');
+    cube.addEventListener('click', () => {
+        cube.setAttribute('color', 'green');
+    });
+</script> 
