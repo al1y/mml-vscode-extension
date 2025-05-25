@@ -1,8 +1,8 @@
 {
     "name": "vscode-mml-extension",
-    "displayName": "MML - Metaverse Markup Language",
-    "description": "MML (Metaverse Markup Language) syntax highlighting, validation and IntelliSense for .mml files",
-    "version": "1.0.1",
+    "displayName": "MML Metaverse Markup Language (mml)",
+    "description": "MML (Metaverse Markup Language) syntax highlighting, validation and IntelliSense for mml files with a .mml extension)",
+    "version": "1.0.2",
     "publisher": "al1y",
     "engines": {
         "vscode": "^1.74.0"
