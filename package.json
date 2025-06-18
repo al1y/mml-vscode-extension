@@ -33,7 +33,8 @@
     "qna": "https://github.com/al1y/mml-vscode-extension/issues",
     "license": "MIT",
     "activationEvents": [
-        "onLanguage:mml"
+        "onLanguage:mml",
+        "onCommand:mml.openPreview"
     ],
     "main": "./out/extension.js",
     "contributes": {
@@ -156,6 +157,12 @@
                 "command": "mml.validateSyntax",
                 "title": "Validate MML Syntax",
                 "category": "MML"
+            },
+            {
+                "command": "mml.openPreview",
+                "title": "Open 3D Preview",
+                "category": "MML",
+                "icon": "$(open-preview)"
             }
         ],
         "menus": {
@@ -164,9 +171,29 @@
                     "command": "mml.validateSyntax",
                     "when": "resourceLangId == mml",
                     "group": "1_modification"
+                },
+                {
+                    "command": "mml.openPreview",
+                    "when": "resourceLangId == mml",
+                    "group": "1_modification"
+                }
+            ],
+            "editor/title": [
+                {
+                    "command": "mml.openPreview",
+                    "when": "resourceLangId == mml",
+                    "group": "navigation"
                 }
             ]
-        }
+        },
+        "keybindings": [
+            {
+                "command": "mml.openPreview",
+                "key": "ctrl+shift+v",
+                "mac": "cmd+shift+v",
+                "when": "resourceLangId == mml"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "npm run build",
