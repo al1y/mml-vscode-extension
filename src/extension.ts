@@ -6,6 +6,9 @@ let diagnosticCollection: vscode.DiagnosticCollection;
 // Per-document validation timeouts
 const validationTimeouts = new Map<string, NodeJS.Timeout>();
 
+// Global preview panel reference
+let previewPanel: vscode.WebviewPanel | undefined;
+
 // Define proper document selector for MML files
 const MML_DOCUMENT_SELECTOR: vscode.DocumentSelector = [
     { scheme: 'file', language: 'mml' },
@@ -18,6 +21,16 @@ export function activate(context: vscode.ExtensionContext) {
     // Create diagnostic collection
     diagnosticCollection = vscode.languages.createDiagnosticCollection('mml');
     context.subscriptions.push(diagnosticCollection);
+
+    // Function to send MML content to preview
+    function sendToPreview(content: string) {
+        if (previewPanel) {
+            previewPanel.webview.postMessage({
+                type: 'source',
+                source: content
+            });
+        }
+    }
 
     // Validation function that can be called from multiple places
     function validateMMLDocument(document: vscode.TextDocument, showMessage: boolean = false) {
@@ -178,6 +191,11 @@ export function activate(context: vscode.ExtensionContext) {
         // Set diagnostics
         diagnosticCollection.set(document.uri, diagnostics);
         
+        // If validation passed (no errors), send content to preview
+        if (diagnostics.length === 0) {
+            sendToPreview(text);
+        }
+        
         // Show message if requested (for manual validation command)
         if (showMessage) {
             const mmlElements = text.match(/<m-[a-z-]+/g);
@@ -194,6 +212,142 @@ export function activate(context: vscode.ExtensionContext) {
             }
         }
     }
+
+    // Function to create or show the preview panel
+    function createOrShowPreview() {
+        const columnToShowIn = vscode.window.activeTextEditor
+            ? vscode.ViewColumn.Beside
+            : undefined;
+
+        if (previewPanel) {
+            // If we already have a panel, show it
+            previewPanel.reveal(columnToShowIn);
+            return;
+        }
+
+        // Otherwise, create a new panel
+        previewPanel = vscode.window.createWebviewPanel(
+            'mmlPreview',
+            'MML 3D Preview',
+            columnToShowIn || vscode.ViewColumn.One,
+            {
+                enableScripts: true,
+                retainContextWhenHidden: true
+            }
+        );
+
+        // Set the webview's initial html content
+        previewPanel.webview.html = getWebviewContent();
+
+        // Handle messages from the webview
+        previewPanel.webview.onDidReceiveMessage(
+            (message: any) => {
+                switch (message.command) {
+                    case 'alert':
+                        vscode.window.showErrorMessage(message.text);
+                        return;
+                }
+            },
+            undefined,
+            context.subscriptions
+        );
+
+        // Reset when the current panel is closed
+        previewPanel.onDidDispose(
+            () => {
+                previewPanel = undefined;
+            },
+            null,
+            context.subscriptions
+        );
+
+        // If there's an active MML document, send its content to the preview
+        const activeEditor = vscode.window.activeTextEditor;
+        if (activeEditor && activeEditor.document.languageId === 'mml') {
+            const text = activeEditor.document.getText();
+            // Only send if validation would pass (no need to re-validate, just check if there are current diagnostics)
+            const currentDiagnostics = diagnosticCollection.get(activeEditor.document.uri);
+            if (!currentDiagnostics || currentDiagnostics.length === 0) {
+                sendToPreview(text);
+            }
+        }
+    }
+
+    // Function to generate the webview HTML content
+    function getWebviewContent() {
+        return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MML 3D Preview</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #1e1e1e;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #cccccc;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">Loading MML Preview...</div>
+    <iframe id="preview-frame" src="https://new.mml-view.space" style="display: none;"></iframe>
+    
+    <script>
+        const vscode = acquireVsCodeApi();
+        const iframe = document.getElementById('preview-frame');
+        const loading = document.getElementById('loading');
+        
+        // Show iframe once it loads
+        iframe.onload = function() {
+            loading.style.display = 'none';
+            iframe.style.display = 'block';
+        };
+        
+        // Handle messages from VS Code
+        window.addEventListener('message', event => {
+            const message = event.data;
+            
+            if (message.type === 'source') {
+                // Forward the message to the iframe
+                iframe.contentWindow.postMessage({
+                    type: 'source',
+                    source: message.source
+                }, 'https://new.mml-view.space');
+            }
+        });
+        
+        // Handle messages from the iframe (if needed)
+        window.addEventListener('message', event => {
+            if (event.origin === 'https://new.mml-view.space') {
+                // Handle any messages from the MML viewer if needed
+                console.log('Message from MML viewer:', event.data);
+            }
+        });
+    </script>
+</body>
+</html>`;
+    }
+
+    // Register command to open MML preview
+    const openPreviewCommand = vscode.commands.registerCommand('mml.openPreview', () => {
+        createOrShowPreview();
+    });
 
     // Register a command to manually validate MML syntax
     const validateMMLCommand = vscode.commands.registerCommand('mml.validateSyntax', () => {
@@ -213,14 +367,14 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     // Auto-validate when opening MML files - VS Code filters based on language registration
-    const onDidOpenTextDocument = vscode.workspace.onDidOpenTextDocument((document) => {
+    const onDidOpenTextDocument = vscode.workspace.onDidOpenTextDocument((document: vscode.TextDocument) => {
         if (document.languageId === 'mml') {
             validateMMLDocument(document);
         }
     });
 
     // Auto-validate on text changes (debounced) - VS Code filters based on language registration
-    const onDidChangeTextDocument = vscode.workspace.onDidChangeTextDocument((event) => {
+    const onDidChangeTextDocument = vscode.workspace.onDidChangeTextDocument((event: vscode.TextDocumentChangeEvent) => {
         if (event.document.languageId === 'mml') {
             // Clear existing timeout
             const timeout = validationTimeouts.get(event.document.uri.toString());
@@ -238,14 +392,14 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     // Validate already open MML documents on activation
-    vscode.workspace.textDocuments.forEach(document => {
+    vscode.workspace.textDocuments.forEach((document: vscode.TextDocument) => {
         if (document.languageId === 'mml') {
             validateMMLDocument(document);
         }
     });
 
     // Clear diagnostics when MML files are closed
-    const onDidCloseTextDocument = vscode.workspace.onDidCloseTextDocument((document) => {
+    const onDidCloseTextDocument = vscode.workspace.onDidCloseTextDocument((document: vscode.TextDocument) => {
         if (document.languageId === 'mml') {
             diagnosticCollection.delete(document.uri);
             validationTimeouts.delete(document.uri.toString());
@@ -897,7 +1051,8 @@ export function activate(context: vscode.ExtensionContext) {
         onDidChangeTextDocument,
         onDidCloseTextDocument,
         completionProvider,
-        hoverProvider
+        hoverProvider,
+        openPreviewCommand
     );
 }
 

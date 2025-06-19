@@ -4,6 +4,7 @@ A VS Code extension for [MML (Metaverse Markup Language)](https://mml.io) files 
 - Syntax highlighting for MML elements and attributes
 - Auto-completion for attributes
 - Basic syntax validation
+- **Real-time 3D preview** of MML scenes
 - JavaScript syntax highlighting within `<script>` tags
 - **Automatic pastel color highlighting** that works with any theme
 
@@ -18,6 +19,24 @@ A VS Code extension for [MML (Metaverse Markup Language)](https://mml.io) files 
 The extension automatically provides beautiful pastel syntax highlighting for MML elements that seamlessly integrates with your existing VS Code theme. No configuration needed!
 
 ## Features
+
+### Real-time 3D Preview
+
+The extension now includes a **real-time 3D preview** feature that lets you see your MML scenes as you code:
+
+- **Live preview**: See your 3D scene update in real-time as you type
+- **Automatic validation**: Preview only updates when your MML is syntactically correct
+- **Side-by-side editing**: Preview opens alongside your code editor
+- **Easy access**: Available via command palette, right-click menu, or keyboard shortcut
+
+#### How to use the 3D Preview:
+
+1. **Command Palette**: Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac) and search for "MML: Open 3D Preview"
+2. **Right-click menu**: Right-click in any MML file and select "Open 3D Preview"
+3. **Keyboard shortcut**: Press `Ctrl+Shift+V` (or `Cmd+Shift+V` on Mac) while editing an MML file
+4. **Editor toolbar**: Click the preview icon in the editor toolbar when viewing an MML file
+
+The preview will automatically update whenever you make changes to your MML file, but only if the syntax is valid. This helps you catch errors quickly while providing immediate visual feedback for your 3D scenes.
 
 ### Automatic Syntax Highlighting
 
